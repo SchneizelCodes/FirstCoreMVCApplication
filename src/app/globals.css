@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   EXTERNAL STYLESHEET RULES
+   Demonstrates separation of content and styling:
+   The Master Layout HTML structure stays identical while CSS controls colors,
+   fonts, borders, and layout appearance across the entire site.
+   ========================================================================== */
+
+/* Theme 1: Creative Visual Designer (Three.js + Frosted Glass + Editorial Typography) */
+[data-theme="creative"] {
+  --body-bg: #040811;
+  --text-color: #f8fafc;
+  --muted-text: rgba(248, 250, 252, 0.68);
+  --accent-color: #f59e0b;
+  --shell-border: rgba(255, 255, 255, 0.14);
+  --header-bg: rgba(10, 18, 36, 0.42);
+  --nav-bg: rgba(255, 255, 255, 0.05);
+  --main-bg: rgba(14, 28, 54, 0.28);
+  --footer-bg: rgba(16, 40, 34, 0.45);
+  --h1-color: #ffffff;
+  --h1-border: 1px solid rgba(255, 255, 255, 0.22);
+  --link-color: rgba(255, 255, 255, 0.78);
+  --link-active-bg: rgba(255, 255, 255, 0.14);
+  --link-active-color: #ffffff;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+/* Theme 2: Classic Expected Output (Light Cyan Body, Light Gray Nav, Light Green Footer) */
+[data-theme="classic"] {
+  --body-bg: #E0FFFF;
+  --text-color: blue;
+  --muted-text: #1e3a8a;
+  --accent-color: blue;
+  --shell-border: #3b82f6;
+  --header-bg: #E0FFFF;
+  --nav-bg: lightgray;
+  --main-bg: #E0FFFF;
+  --footer-bg: lightgreen;
+  --h1-color: blue;
+  --h1-border: 2px solid blue;
+  --link-color: blue;
+  --link-active-bg: rgba(0, 0, 255, 0.1);
+  --link-active-color: blue;
+  --font-main: Arial, sans-serif;
+}
+
+/* Theme 3: Alternative Color Scheme (Demonstrates updating whole site via CSS) */
+[data-theme="emerald"] {
+  --body-bg: #03120e;
+  --text-color: #ecfdf5;
+  --muted-text: rgba(236, 253, 245, 0.7);
+  --accent-color: #fbbf24;
+  --shell-border: rgba(52, 211, 153, 0.24);
+  --header-bg: rgba(6, 40, 30, 0.55);
+  --nav-bg: rgba(255, 255, 255, 0.06);
+  --main-bg: rgba(6, 48, 36, 0.32);
+  --footer-bg: rgba(16, 70, 48, 0.6);
+  --h1-color: #ffffff;
+  --h1-border: 1px solid rgba(52, 211, 153, 0.4);
+  --link-color: rgba(236, 253, 245, 0.8);
+  --link-active-bg: rgba(52, 211, 153, 0.18);
+  --link-active-color: #ffffff;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
+.site-wrapper {
+  min-height: 100vh;
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 24px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Master Layout Shell (Header, Left Navigation, Main Content, Footer) */
+.master-shell {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1240px;
+  min-height: 82vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border: 1px solid var(--shell-border);
+  border-radius: 18px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+[data-theme="classic"] .master-shell {
+  max-width: 860px;
+  min-height: 520px;
+  border: 2px solid #64748b;
+  border-radius: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+/* 1. Header (Top): Centered "Website Header" */
+.header-cell {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--shell-border);
+  padding: 18px 28px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  margin: 0 auto;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+[data-theme="classic"] .header-title {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 1.17em;
+}
+
+/* Middle Area: Left Navigation Sidebar + Main Content Area */
+.middle-row {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 460px;
+}
+
+[data-theme="classic"] .middle-row {
+  grid-template-columns: 200px 1fr;
+}
+
+/* 2. Left Navigation Sidebar (Left Column) */
+.nav-cell {
+  background-color: var(--nav-bg);
+  border-right: 1px solid var(--shell-border);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nav-heading {
+  margin: 0 0 16px 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+[data-theme="classic"] .nav-heading {
+  font-size: 1.17em;
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 1;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-cell a {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.18s ease;
+}
+
+[data-theme="classic"] .nav-cell a {
+  padding: 4px 0;
+  border-radius: 0;
+  text-decoration: underline;
+}
+
+.nav-cell a:hover,
+.nav-cell a.active-link {
+  background-color: var(--link-active-bg);
+  color: var(--link-active-color);
+}
+
+/* 3. Main Content Area (Center Right) */
+.main-cell {
+  background-color: var(--main-bg);
+  padding: 36px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.page-heading {
+  color: var(--h1-color);
+  border: var(--h1-border);
+  padding: 10px 16px;
+  margin: 0 0 24px 0;
+  display: inline-block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+[data-theme="classic"] .page-heading {
+  display: block;
+  border-radius: 0;
+  padding: 6px 8px;
+  font-size: 2em;
+}
+
+/* Editorial Hero Display inside Main Content Area */
+.editorial-hero-title {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-size: clamp(3rem, 6.2vw, 5.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  margin: 12px 0;
+}
+
+.editorial-serif-accent {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-color);
+  letter-spacing: -0.01em;
+}
+
+/* 4. Footer (Bottom): Centered small text "Website Footer" */
+.footer-cell {
+  background-color: var(--footer-bg);
+  border-top: 1px solid var(--shell-border);
+  padding: 12px 24px;
+  text-align: center;
+  font-size: x-small;
+}
+
+.footer-title {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-theme="classic"] .footer-title {
+  font-size: 1.17em;
+  letter-spacing: normal;
+  text-transform: none;
+}
